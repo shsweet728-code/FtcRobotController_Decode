@@ -29,16 +29,16 @@ public class Launcher {
 
     public void init(HardwareMap hwMap) {
         launcher = hwMap.get(DcMotorEx.class, "launcher");
-        leftFeeder = hwMap.get(CRServo.class, "leftFeeder");
-        rightFeeder = hwMap.get(CRServo.class, "rightFeeder");
+        leftFeeder = hwMap.get(CRServo.class, "left_feeder");
+        rightFeeder = hwMap.get(CRServo.class, "right_feeder");
 
-        launcher.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        launcher.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        launcher.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        launcher.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
-        launcher.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(
+        launcher.setPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(
                 300, 0, 0, 10
         ));
-        leftFeeder.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftFeeder.setDirection(CRServo.Direction.REVERSE);
 
         launchState = LaunchState.IDLE;
         stopFeeder();
@@ -91,11 +91,12 @@ public class Launcher {
     }
 
     public String getState() {
-        return launcher.toString();
+        return launchState.toString();
     }
 
     public void setTargetVelocity(double velocity) {
         LAUNCHER_TARGET_VELOCITY += velocity;
         LAUNCHER_MIN_VELOCITY += velocity;
+        launcher.setVelocity(LAUNCHER_TARGET_VELOCITY);
     }
 }
