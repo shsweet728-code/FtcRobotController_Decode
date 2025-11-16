@@ -97,6 +97,8 @@ public class Launcher {
     public void setTargetVelocity(double velocity) {
         LAUNCHER_TARGET_VELOCITY += velocity;
         LAUNCHER_MIN_VELOCITY += velocity;
-        launcher.setVelocity(LAUNCHER_TARGET_VELOCITY);
+        if (launchState != LaunchState.IDLE) {
+            launcher.setVelocity(LAUNCHER_TARGET_VELOCITY);
+        }
     }
 }

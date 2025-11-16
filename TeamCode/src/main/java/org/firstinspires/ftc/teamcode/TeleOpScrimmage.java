@@ -1,22 +1,24 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.mechanisms.ArcadeDrive;
 import org.firstinspires.ftc.teamcode.mechanisms.Launcher;
+import org.firstinspires.ftc.teamcode.mechanisms.RobotLed;
 
-@Disabled
 @TeleOp
-public class TeleOpClassExample extends OpMode {
+public class TeleOpScrimmage extends OpMode {
     ArcadeDrive drive = new ArcadeDrive();
     Launcher launcher = new Launcher();
+
+    RobotLed ledIndicator = new RobotLed();
 
     @Override
     public void init() {
         drive.init(hardwareMap);
         launcher.init(hardwareMap);
+        ledIndicator.init(hardwareMap);
     }
 
     @Override
@@ -29,7 +31,7 @@ public class TeleOpClassExample extends OpMode {
         else if (gamepad1.b) {
             launcher.stopLauncher();
         }
-
+        ledIndicator.changeColor(gamepad1.left_stick_y);
         launcher.setTargetVelocity(gamepad1.right_trigger);
         launcher.setTargetVelocity(-gamepad1.left_trigger);
         /*
