@@ -31,6 +31,7 @@ public class TeleOpScrimmage extends OpMode {
         else if (gamepad1.b) {
             launcher.stopLauncher();
         }
+
         ledIndicator.changeColor(gamepad1.left_stick_y);
         launcher.setTargetVelocity(gamepad1.right_trigger);
         launcher.setTargetVelocity(-gamepad1.left_trigger);
@@ -50,6 +51,7 @@ public class TeleOpScrimmage extends OpMode {
         telemetry.addData("Left Power", drive.getPowerLeft());
         telemetry.addData("Right Power",drive.getPowerRight());
         telemetry.addData("State", launcher.getState());
+        telemetry.addData("Target Velocity", launcher.getTargetVelocity());
         telemetry.addData("Launcher Velocity", launcher.getVelocity());
     }
 }

@@ -90,6 +90,10 @@ public class Launcher {
         return launcher.getVelocity();
     }
 
+    public double getTargetVelocity() {
+        return LAUNCHER_TARGET_VELOCITY;
+    }
+
     public String getState() {
         return launchState.toString();
     }
