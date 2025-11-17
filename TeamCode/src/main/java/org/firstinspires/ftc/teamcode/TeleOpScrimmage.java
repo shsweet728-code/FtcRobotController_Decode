@@ -33,8 +33,13 @@ public class TeleOpScrimmage extends OpMode {
         }
 
         ledIndicator.changeColor(gamepad1.left_stick_y);
-        launcher.setTargetVelocity(gamepad1.right_trigger);
-        launcher.setTargetVelocity(-gamepad1.left_trigger);
+        if (gamepad1.right_bumper){
+            launcher.setTargetVelocity(1);
+        }
+        else if (gamepad1.left_bumper){
+            launcher.setTargetVelocity(-1);
+        }
+
         /*
         if (gamepad1.right_trigger > 0.1) {
             launcher.setTargetVelocity(gamepad1.right_trigger);

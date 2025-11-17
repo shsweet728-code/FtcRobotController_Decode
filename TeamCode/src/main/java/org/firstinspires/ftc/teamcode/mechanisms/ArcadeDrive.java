@@ -1,14 +1,14 @@
 package org.firstinspires.ftc.teamcode.mechanisms;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class ArcadeDrive {
     private DcMotor leftDrive, rightDrive;
     private double leftPower, rightPower;
 
-    private double SPIN_DAMPING = 1.0; //higher means slower turn
+    private final double SPIN_DAMPING = 1.5;//higher means slower turn
+    private final double THROTTLE_DAMPING = 1.5;
 
     public void init(HardwareMap hwMap) {
         leftDrive = hwMap.get(DcMotor.class, "left_drive");
@@ -25,6 +25,7 @@ public class ArcadeDrive {
 
     public void drive(double throttle, double spin) {
         spin /= SPIN_DAMPING;
+        throttle /= THROTTLE_DAMPING;
         leftPower = throttle + spin;
         rightPower = throttle - spin;
         double largest = Math.max(Math.abs(throttle), Math.abs(spin));

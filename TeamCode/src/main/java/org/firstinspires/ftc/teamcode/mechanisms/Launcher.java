@@ -1,23 +1,23 @@
 package org.firstinspires.ftc.teamcode.mechanisms;
 
 import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.StarterBotTeleop;
-
 public class Launcher {
-    private final double FEED_TIME_SECONDS = 0.20;
+    //Define CONSTANTS
+    private final double FEED_TIME_SECONDS = 1;
     private final double FULL_SPEED = 1.0;
     private double LAUNCHER_TARGET_VELOCITY = 1125;
     private final double STOP_SPEED = 0.0;
-    private double LAUNCHER_MIN_VELOCITY = 1075;
+    private double LAUNCHER_MIN_VELOCITY = 1120;
+
+    // Declare variables
     private DcMotorEx launcher;
     private CRServo leftFeeder, rightFeeder;
+    private LaunchState launchState;
     ElapsedTime feederTimer = new ElapsedTime();
     private enum LaunchState {
         IDLE,
@@ -25,7 +25,7 @@ public class Launcher {
         LAUNCH,
         LAUNCHING,
     }
-    private LaunchState launchState;
+
 
     public void init(HardwareMap hwMap) {
         launcher = hwMap.get(DcMotorEx.class, "launcher");
@@ -59,6 +59,7 @@ public class Launcher {
                 if (launcher.getVelocity() >= LAUNCHER_MIN_VELOCITY) {
                     launchState = LaunchState.LAUNCH;
                 }
+                break;
             case LAUNCH:
                 leftFeeder.setPower(FULL_SPEED);
                 rightFeeder.setPower(FULL_SPEED);
@@ -101,8 +102,12 @@ public class Launcher {
     public void setTargetVelocity(double velocity) {
         LAUNCHER_TARGET_VELOCITY += velocity;
         LAUNCHER_MIN_VELOCITY += velocity;
-        if (launchState != LaunchState.IDLE) {
+        if (getVelocity() > 500) {
             launcher.setVelocity(LAUNCHER_TARGET_VELOCITY);
         }
+    }
+
+    public void runLauncher() {
+        launcher.setVelocity(LAUNCHER_TARGET_VELOCITY);
     }
 }
