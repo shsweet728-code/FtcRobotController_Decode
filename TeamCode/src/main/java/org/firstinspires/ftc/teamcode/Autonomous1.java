@@ -26,9 +26,9 @@ import org.firstinspires.ftc.teamcode.mechanisms.Launcher;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
-@Disabled
-@Autonomous(name="Robot: Auto Drive", group="Robot")
-public class TestAutonomous extends LinearOpMode {
+
+@Autonomous(name="Robot: Auto Drive By Time", group="Robot")
+public class Autonomous1 extends LinearOpMode {
 
     Launcher launcher = new Launcher();
 
@@ -40,7 +40,7 @@ public class TestAutonomous extends LinearOpMode {
 
 
     static final double     FORWARD_SPEED = 0.5;
-    static final double     TURN_SPEED    = 0.5;
+    static final double     TURN_SPEED    = 0.4;
 
     @Override
     public void runOpMode() {
@@ -70,7 +70,7 @@ public class TestAutonomous extends LinearOpMode {
         leftDrive.setPower(FORWARD_SPEED);
         rightDrive.setPower(FORWARD_SPEED);
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 3.0)) {
+        while (opModeIsActive() && (runtime.seconds() < 2.6)) {
             telemetry.addData("Path", "Leg 1: %4.1f S Elapsed", runtime.seconds());
             telemetry.update();
         }
@@ -79,13 +79,24 @@ public class TestAutonomous extends LinearOpMode {
         sleep(1000);
 
         // Step 2:  Spin right for 1.3 seconds
-        leftDrive.setPower(TURN_SPEED);
-        rightDrive.setPower(-TURN_SPEED);
+        leftDrive.setPower(-TURN_SPEED);
+        rightDrive.setPower(TURN_SPEED);
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 2.5)) {
+        while (opModeIsActive() && (runtime.seconds() < .75)) {
             telemetry.addData("Path", "Leg 2: %4.1f S Elapsed", runtime.seconds());
             telemetry.update();
         }
+
+        // Make sure to drive forward to increase chances of scoring while also making sure
+        //to not get penalized for shooting outside the launch zone.
+        leftDrive.setPower(FORWARD_SPEED);
+        rightDrive.setPower(FORWARD_SPEED);
+        runtime.reset();
+        while (opModeIsActive() && (runtime.seconds() < .75)) {
+            telemetry.addData("Path", "Leg 2: %4.1f S Elapsed", runtime.seconds());
+            telemetry.update();
+        }
+
         leftDrive.setPower(0);
         rightDrive.setPower(0);
         sleep(1000);
