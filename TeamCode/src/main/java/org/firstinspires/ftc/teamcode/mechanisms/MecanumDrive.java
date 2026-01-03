@@ -36,7 +36,7 @@ public class MecanumDrive {
         //Pinpoint setup
         imuExt.setOffsets(0,0, DistanceUnit.MM);
         imuExt.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
-        imuExt.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD,GoBildaPinpointDriver.EncoderDirection.FORWARD);
+        imuExt.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.REVERSED,GoBildaPinpointDriver.EncoderDirection.FORWARD);
 
         //Set Pinpoint starting position
         imuExt.resetPosAndIMU();
@@ -87,9 +87,22 @@ public class MecanumDrive {
         this.drive(newForward, newStrafe, rotate);
     }
 
+    public double returnHeading(){
+        return imuExt.getHeading(AngleUnit.DEGREES);
+    }
+
+    public double returnPosX(){
+        return imuExt.getPosX(DistanceUnit.MM);
+    }
+
+    public double returnPosY(){
+        return imuExt.getPosY(DistanceUnit.MM);
+    }
+
+
     public void driveFieldRelative2 (double forward, double strafe, double rotate){
         Pose2D pos = imuExt.getPosition();
-        double heading = pos.getHeading(AngleUnit.RADIANS);
+        double heading = -pos.getHeading(AngleUnit.RADIANS);
 
         double cosAngle = Math.cos(heading);
         double sinAngle = Math.sin(heading);
@@ -97,7 +110,11 @@ public class MecanumDrive {
         double newForward = forward * cosAngle + strafe * sinAngle;
         double newStrafe = -forward * sinAngle + strafe * cosAngle;
 
+        rotate = rotate * 1.1;
+
         this.drive(newForward, newStrafe, rotate);
+
+        imuExt.update();
 
     }
 

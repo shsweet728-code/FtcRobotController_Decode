@@ -27,5 +27,9 @@ public class MecanumFieldOrientedOpMode extends OpMode {
 
         drive.driveFieldRelative2(forward, strafe,rotate);
 
+        telemetry.addData("X pos", drive.returnPosX());
+        telemetry.addData("Y pos", drive.returnPosY());
+        telemetry.addData("Heading", drive.returnHeading());
+
     }
 }
