@@ -1,15 +1,20 @@
 package org.firstinspires.ftc.teamcode.mechanisms;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
+import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 
 public class MecanumDrive {
 
+    GoBildaPinpointDriver imuExt;
     private DcMotor frontLeftMotor, frontRightMotor, backLeftMotor, backRightMotor;
 
     private IMU imu;
@@ -28,14 +33,35 @@ public class MecanumDrive {
         backLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        imuExt = hwMap.get(GoBildaPinpointDriver.class, "imu_ext");
+
+        //Pinpoint setup
+        imuExt.setOffsets(0,0, DistanceUnit.MM);
+        imuExt.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
+        imuExt.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD,GoBildaPinpointDriver.EncoderDirection.FORWARD);
+
+        //Set Pinpoint starting position
+        imuExt.resetPosAndIMU();
+        Pose2D startingPosition = new Pose2D(DistanceUnit.MM,0,0,AngleUnit.RADIANS,0);
+        imuExt.setPosition(startingPosition);
+
+        //Pinpoint telemetry
+        telemetry.addData("Status", "Initialized");
+        telemetry.addData("X offset", imuExt.getXOffset(DistanceUnit.MM));
+        telemetry.addData("Y offset", imuExt.getYOffset(DistanceUnit.MM));
+        telemetry.addData("Device Version #", imuExt.getDeviceVersion());
+        telemetry.addData("Device Scalar", imuExt.getYawScalar());
+
+
+        //Setup internal IMU
         imu = hwMap.get(IMU.class, "imu");
-       // imu = hwMap.get(IMU.class, "imu_ext");
 
         RevHubOrientationOnRobot revOrientation = new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
                 RevHubOrientationOnRobot.UsbFacingDirection.FORWARD);
 
         imu.initialize(new IMU.Parameters(revOrientation));
+
     }
 
     public void drive(double forward, double strafe, double rotate){
@@ -69,6 +95,27 @@ public class MecanumDrive {
         double newStrafe = r * Math.cos(theta);
 
         this.drive(newForward, newStrafe, rotate);
+    }
+
+    public void driveFieldRelative2 (double forward, double strafe, double rotate){
+        Pose2D pos = imuExt.getPosition();
+        double heading = pos.getHeading(AngleUnit.RADIANS);
+
+        double cosAngle = Math.cos(heading);
+        double sinAngle = Math.sin(heading);
+
+        double newForward = forward * cosAngle + strafe * sinAngle;
+        double newStrafe = -forward * sinAngle + strafe * cosAngle;
+
+        this.drive(newForward, newStrafe, rotate);
+
+        telemetry.addData("Robot XPos", pos.getX(DistanceUnit.MM));
+        telemetry.addData("Robot YPos", pos.getY(DistanceUnit.MM));
+        telemetry.addData("Robot Heading", heading);
+        telemetry.addData("Forward Speed", newForward);
+        telemetry.addData("Strafe Speed", newStrafe);
+
+
     }
 
 
