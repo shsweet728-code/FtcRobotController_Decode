@@ -34,7 +34,7 @@ public class MecanumDrive {
         imuExt = hwMap.get(GoBildaPinpointDriver.class, "imu_ext");
 
         //Pinpoint setup
-        imuExt.setOffsets(0,0, DistanceUnit.MM);
+        imuExt.setOffsets(65,75, DistanceUnit.MM);
         imuExt.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
         imuExt.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.REVERSED,GoBildaPinpointDriver.EncoderDirection.FORWARD);
 
