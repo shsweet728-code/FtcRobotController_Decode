@@ -23,7 +23,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
-@Autonomous(name="Robot: Auto Drive Blue by LS", group="Robot")
+@Autonomous(name="Robot: Auto Drive Blue by LS MECH", group="Robot")
 public class CHIPSAutonomousBlueMech extends LinearOpMode {
 
     Launcher launcher = new Launcher();
