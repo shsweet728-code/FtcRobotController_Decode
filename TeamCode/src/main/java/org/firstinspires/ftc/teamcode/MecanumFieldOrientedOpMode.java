@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.mechanisms.Launcher;
 import org.firstinspires.ftc.teamcode.mechanisms.MecanumDrive;
-import org.firstinspires.ftc.teamcode.mechanisms.RobotLed;
 
 @TeleOp
 public class MecanumFieldOrientedOpMode extends OpMode {
@@ -19,7 +18,7 @@ public class MecanumFieldOrientedOpMode extends OpMode {
 
     Launcher launcher = new Launcher();
 
-    RobotLed ledIndicator = new RobotLed();
+
 
     MecanumDrive drive = new MecanumDrive();
 
@@ -29,7 +28,6 @@ public class MecanumFieldOrientedOpMode extends OpMode {
     public void init() {
         drive.init(hardwareMap);
         launcher.init(hardwareMap);
-        ledIndicator.init(hardwareMap);
     }
 
 
@@ -55,7 +53,7 @@ public class MecanumFieldOrientedOpMode extends OpMode {
             launcher.spinLauncher();
         }
 
-        ledIndicator.changeColor(gamepad1.left_stick_y);
+
 
         if (gamepad1.right_bumper){
             launcher.changeTargetVelocity(1);
