@@ -25,10 +25,10 @@ public class PedroPathingTest extends OpMode {
     private final Pose startPose = new Pose(21.113673805601323, 124.78418451400331, Math.toRadians(144));
     private final Pose shootPose = new Pose(63.59143327841845, 41.21416803953872, Math.toRadians(144));
 
-    private PathChain driveStartSquare;
+    private PathChain driveStartShoot;
 
     public void buildPath() {
-        driveStartSquare = follower.pathBuilder()
+        driveStartShoot = follower.pathBuilder()
                 .addPath(new BezierLine(startPose, shootPose))
                 .setLinearHeadingInterpolation(startPose.getHeading(), shootPose.getHeading())
                 .build();
@@ -37,7 +37,7 @@ public class PedroPathingTest extends OpMode {
     public void statePathUpdate() {
         switch(pathState) {
             case DRIVE_STARTPOS_SHOOT_POS:
-                follower.followPath(driveStartSquare, true);
+                follower.followPath(driveStartShoot, true);
                 pathState = PathState.SHOOT_PRELOAD;
                 break;
             case SHOOT_PRELOAD:
