@@ -16,7 +16,8 @@ public class PedroPathingTest extends OpMode {
     public enum PathState {
         //Start Position_End Position
 
-        DRIVE_STARTPOS_SHOOT_POS,
+        DRIVE_START_POS,
+        SHOOT_POS,
         SHOOT_PRELOAD
     }
 
@@ -36,7 +37,7 @@ public class PedroPathingTest extends OpMode {
 
     public void statePathUpdate() {
         switch(pathState) {
-            case DRIVE_STARTPOS_SHOOT_POS:
+            case DRIVE_START_POS:
                 follower.followPath(driveStartSquare, true);
                 pathState = PathState.SHOOT_PRELOAD;
                 break;
