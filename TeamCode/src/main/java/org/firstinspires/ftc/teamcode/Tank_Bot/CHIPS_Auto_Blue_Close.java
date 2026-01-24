@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.Tank_Bot;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.mechanisms.ArcadeDrive;
@@ -39,6 +38,8 @@ public class CHIPS_Auto_Blue_Close extends LinearOpMode {
     static final double     FORWARD_SPEED = 0.5;
     static final double     TURN_SPEED    = 0.25;
 
+    static final double     TARGET_VELOCITY = 1250;
+
     @Override
     public void runOpMode() {
 
@@ -46,6 +47,7 @@ public class CHIPS_Auto_Blue_Close extends LinearOpMode {
         drive.init(hardwareMap);
 
         launcher.spinLauncher();
+        launcher.setTargetVelocity(TARGET_VELOCITY);
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Ready to run");    //

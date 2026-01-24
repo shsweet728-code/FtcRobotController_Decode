@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Tank_Bot;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -39,6 +38,8 @@ public class CHIPS_Auto_Red_Far extends LinearOpMode {
     static  final long    PAUSE_TIME = 50;
     static final double     FORWARD_SPEED = 0.5;
     static final double     TURN_SPEED    = 0.25;
+    static final double     TARGET_VELOCITY = 1250;
+
 
     @Override
     public void runOpMode() {
@@ -47,6 +48,8 @@ public class CHIPS_Auto_Red_Far extends LinearOpMode {
         drive.init(hardwareMap);
 
         launcher.spinLauncher();
+        launcher.setTargetVelocity(TARGET_VELOCITY);
+
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Ready to run");    //

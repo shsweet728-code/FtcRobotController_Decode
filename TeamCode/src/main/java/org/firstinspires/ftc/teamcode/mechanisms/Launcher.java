@@ -10,9 +10,9 @@ public class Launcher {
     //Define CONSTANTS
     private final double FEED_TIME_SECONDS = .5;
     private final double FULL_SPEED = 1.0;
-    private double launcherTargetVelocity = 1125;
+    private double launcherTargetVelocity;
     private final double STOP_SPEED = 0.0;
-    private double launcherMinVelocity = launcherTargetVelocity - 25;
+    private double launcherMinVelocity;
 
     // Declare variables
     private DcMotorEx launcher;
@@ -109,6 +109,11 @@ public class Launcher {
         if (getVelocity() > 500) {
             launcher.setVelocity(launcherTargetVelocity);
         }
+    }
+
+    public void setTargetVelocity(double velocity) {
+        launcherTargetVelocity = velocity;
+        launcherMinVelocity = velocity-25;
     }
 
     public void runLauncher() {

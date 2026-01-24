@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.Tank_Bot;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -13,17 +12,20 @@ public class TeleOpScrimmage extends OpMode {
 
     private boolean hasLaunched = false;
 
-    private ElapsedTime runTime = new ElapsedTime();
     ArcadeDrive drive = new ArcadeDrive();
     Launcher launcher = new Launcher();
 
     RobotLed ledIndicator = new RobotLed();
+    static final double     TARGET_VELOCITY = 1250;
+
 
     @Override
     public void init() {
         drive.init(hardwareMap);
         launcher.init(hardwareMap);
         ledIndicator.init(hardwareMap);
+        launcher.setTargetVelocity(TARGET_VELOCITY);
+
     }
 
     @Override
@@ -39,6 +41,8 @@ public class TeleOpScrimmage extends OpMode {
         else if (gamepad1.x) {
             launcher.spinLauncher();
         }
+        // Disable trick shot
+        /*
         else if (gamepad1.a) {
             runTime.reset();
             while (runTime.seconds() < 0.5) {
@@ -54,7 +58,9 @@ public class TeleOpScrimmage extends OpMode {
                 drive.drive(1, 0, 1);
                 launcher.updateState();
             }
-        }
+
+
+        }*/
 
         ledIndicator.changeColor(gamepad1.left_stick_y);
 
