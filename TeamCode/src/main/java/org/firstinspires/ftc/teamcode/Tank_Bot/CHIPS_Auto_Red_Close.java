@@ -37,7 +37,7 @@ public class CHIPS_Auto_Red_Close extends LinearOpMode {
     static  final long    PAUSE_TIME = 50;
     static final double     FORWARD_SPEED = 0.5;
     static final double     TURN_SPEED    = 0.25;
-    static final double     TARGET_VELOCITY = 1250;
+    static final double     TARGET_VELOCITY = 1400;
 
 
     @Override
@@ -61,7 +61,7 @@ public class CHIPS_Auto_Red_Close extends LinearOpMode {
         // Step 1:  Drive backwards off start line
         drive.drive(-FORWARD_SPEED, 0, 0);
         runTime.reset();
-        while (opModeIsActive() && (runTime.seconds() < .4)) {
+        while (opModeIsActive() && (runTime.seconds() < 3)) {
             telemetry.addData("Path", "Leg 1: %4.1f S Elapsed", runTime.seconds());
             telemetry.update();
         }
@@ -81,7 +81,7 @@ public class CHIPS_Auto_Red_Close extends LinearOpMode {
         // Step 3: Turn Left
         drive.drive(0, -TURN_SPEED, 0);
         runTime.reset();
-        while (opModeIsActive() && (runTime.seconds() < 0.5)) {
+        while (opModeIsActive() && (runTime.seconds() < 1)) {
             telemetry.addData("Path", "Leg 2: %4.1f S Elapsed", runTime.seconds());
             telemetry.update();
         }
@@ -91,7 +91,7 @@ public class CHIPS_Auto_Red_Close extends LinearOpMode {
         // Step 4:  Drive backwards
         drive.drive(-FORWARD_SPEED, 0, 0);
         runTime.reset();
-        while (opModeIsActive() && (runTime.seconds() < .4)) {
+        while (opModeIsActive() && (runTime.seconds() < 1.8)) {
             telemetry.addData("Path", "Leg 1: %4.1f S Elapsed", runTime.seconds());
             telemetry.update();
         }

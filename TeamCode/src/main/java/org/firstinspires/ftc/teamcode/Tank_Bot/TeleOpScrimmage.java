@@ -16,7 +16,7 @@ public class TeleOpScrimmage extends OpMode {
     Launcher launcher = new Launcher();
 
     RobotLed ledIndicator = new RobotLed();
-    static final double     TARGET_VELOCITY = 1250;
+    static final double     TARGET_VELOCITY = 1400;
 
 
     @Override

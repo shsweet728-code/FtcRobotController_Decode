@@ -10,9 +10,9 @@ public class Launcher {
     //Define CONSTANTS
     private final double FEED_TIME_SECONDS = .5;
     private final double FULL_SPEED = 1.0;
-    private double launcherTargetVelocity;
+    private double launcherTargetVelocity = 1250;
     private final double STOP_SPEED = 0.0;
-    private double launcherMinVelocity;
+    private double launcherMinVelocity = 1225;
 
     // Declare variables
     private DcMotorEx launcher;

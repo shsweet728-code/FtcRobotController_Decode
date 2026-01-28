@@ -9,14 +9,19 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.pedropathing.util.Timer;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.mechanisms.Launcher;
+import org.firstinspires.ftc.teamcode.mechanisms.MecanumDrive;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
-@Disabled
 @TeleOp
 public class PedroPathingTest extends OpMode {
     private Follower follower;
     private Timer pathTimer, opModeTimer;
+    Launcher launcher = new Launcher();
 
+    MecanumDrive drive = new MecanumDrive();
+    private ElapsedTime runTime = new ElapsedTime();
     public enum PathState {
         //Start Position_End Position
 
@@ -27,7 +32,7 @@ public class PedroPathingTest extends OpMode {
     PathState pathState;
 
     private final Pose startPose = new Pose(21.113673805601323, 124.78418451400331, Math.toRadians(144));
-    private final Pose shootPose = new Pose(63.59143327841845, 41.21416803953872, Math.toRadians(270));
+    private final Pose shootPose = new Pose(43.176276771004936, 104.38220757825371, Math.toRadians(140));
 
     private PathChain driveStartShoot;
 
@@ -46,7 +51,15 @@ public class PedroPathingTest extends OpMode {
                 break;
             case SHOOT_PRELOAD:
                 if (!follower.isBusy()) {
+                    for (int i = 0; i < 3; i++) {
+                        launcher.startLauncher();
+                        runTime.reset();
+                        while (/*opModeIsActive() &&*/ (runTime.seconds() < 3)) {
+                            launcher.updateState();
+                        }
+                    }
                     telemetry.addLine("Done Path 1");
+
                 }
                 break;
             default:
@@ -65,6 +78,8 @@ public class PedroPathingTest extends OpMode {
         pathState = PathState.DRIVE_STARTPOS_SHOOT_POS;
         pathTimer = new Timer();
         opModeTimer = new Timer();
+        launcher.init(hardwareMap);
+        drive.init(hardwareMap);
         follower = Constants.createFollower(hardwareMap);
         buildPath();
 
@@ -81,5 +96,6 @@ public class PedroPathingTest extends OpMode {
     public void loop() {
         follower.update();
         statePathUpdate();
+        drive.drive(0,0,0);
     }
 }

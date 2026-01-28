@@ -34,9 +34,9 @@ public class CHIPS_Auto_Blue_Far extends LinearOpMode {
     private ElapsedTime runTime = new ElapsedTime();
 
     static  final long    PAUSE_TIME = 50;
-    static final double     FORWARD_SPEED = 0.5;
+    static final double     FORWARD_SPEED = 1;
     static final double     TURN_SPEED    = 0.25;
-    static final double     TARGET_VELOCITY = 1250;
+    static final double     TARGET_VELOCITY = 1400;
 
 
     @Override
@@ -60,7 +60,7 @@ public class CHIPS_Auto_Blue_Far extends LinearOpMode {
         // Step 1:  Drive forward off back line
         drive.drive(FORWARD_SPEED, 0, 0);
         runTime.reset();
-        while (opModeIsActive() && (runTime.seconds() < 1.5)) {
+        while (opModeIsActive() && (runTime.seconds() < 2)) {
             telemetry.addData("Path", "Leg 1: %4.1f S Elapsed", runTime.seconds());
             telemetry.update();
         }
@@ -70,18 +70,8 @@ public class CHIPS_Auto_Blue_Far extends LinearOpMode {
         // Step 2:  Turn right towards red tower
         drive.drive(0, -TURN_SPEED, 0);
         runTime.reset();
-        while (opModeIsActive() && (runTime.seconds() < 0.75)) {
+        while (opModeIsActive() && (runTime.seconds() < 1.1)) {
             telemetry.addData("Path", "Leg 2: %4.1f S Elapsed", runTime.seconds());
-            telemetry.update();
-        }
-        drive.drive(0, 0, 0);
-        sleep(PAUSE_TIME);
-
-        // Step 3:  Drive forward towards red tower
-        drive.drive(FORWARD_SPEED, 0, 0);
-        runTime.reset();
-        while (opModeIsActive() && (runTime.seconds() < 2.2)) {
-            telemetry.addData("Path", "Leg 1: %4.1f S Elapsed", runTime.seconds());
             telemetry.update();
         }
         drive.drive(0, 0, 0);
