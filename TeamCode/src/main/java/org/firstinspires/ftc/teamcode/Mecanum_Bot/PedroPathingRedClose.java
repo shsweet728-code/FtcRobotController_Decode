@@ -5,17 +5,17 @@ import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.pedropathing.util.Timer;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.mechanisms.Launcher;
 import org.firstinspires.ftc.teamcode.mechanisms.MecanumDrive;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
-@TeleOp
-public class PedroPathingTest extends OpMode {
+
+@Autonomous
+public class PedroPathingRedClose extends OpMode {
     private Follower follower;
     private Timer pathTimer, opModeTimer;
     Launcher launcher = new Launcher();
@@ -31,8 +31,9 @@ public class PedroPathingTest extends OpMode {
 
     PathState pathState;
 
-    private final Pose startPose = new Pose(21.113673805601323, 124.78418451400331, Math.toRadians(144));
-    private final Pose shootPose = new Pose(43.176276771004936, 104.38220757825371, Math.toRadians(140));
+    private final Pose startPose = new Pose(121, 124.78418451400331, Math.toRadians(46));
+    private final Pose shootPose = new Pose(101, 104.38220757825371, Math.toRadians(40));
+    private final Pose FinishPose = new Pose(101, 104.38220757825371, Math.toRadians(90));
 
     private PathChain driveStartShoot;
 
