@@ -62,7 +62,7 @@ public class PedroPathingBlueClose extends OpMode {
                     for (int i = 0; i < 3; i++) {
                         launcher.startLauncher();
                         runTime.reset();
-                        while (/*opModeIsActive() &&*/ (runTime.seconds() < 3)) {
+                        while (/*opModeIsActive() &&*/ (runTime.seconds() < 2)) {
                             launcher.updateState();
                         }
                     }
@@ -73,10 +73,10 @@ public class PedroPathingBlueClose extends OpMode {
                 break;
             case TURN_FOR_OPMODE:
                 if (!follower.isBusy()) {
-                    follower.followPath(driveStartShoot, true);
-                    telemetry.addLine("Done Turning 1");
-                    setPathState(PathState.TURN_FOR_OPMODE);
+                    follower.followPath(turnAfterShot, true);
                 }
+                telemetry.addLine("Done Turning 1");
+                setPathState(PathState.TURN_FOR_OPMODE);
                 break;
             default:
                 telemetry.addLine("No State Commanded!");
@@ -112,6 +112,12 @@ public class PedroPathingBlueClose extends OpMode {
     public void loop() {
         follower.update();
         statePathUpdate();
-        drive.drive(0,0,0);
+
+        telemetry.addData("path state", pathState.toString());
+        telemetry.addData("x", follower.getPose().getX());
+        telemetry.addData("y", follower.getPose().getY());
+        telemetry.addData("heading", follower.getPose().getHeading());
+        telemetry.addData("path time", pathTimer.getElapsedTimeSeconds());
+
     }
 }
