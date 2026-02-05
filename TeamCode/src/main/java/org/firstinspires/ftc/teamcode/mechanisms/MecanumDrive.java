@@ -79,7 +79,8 @@ public class MecanumDrive {
         double theta = Math.atan2(forward, strafe);
         double r = Math.hypot(strafe, forward);
 
-        theta = AngleUnit.normalizeRadians(theta - imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS));
+//        theta = AngleUnit.normalizeRadians(theta - imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS));
+        theta = AngleUnit.normalizeRadians(theta - imuExt.getHeading(AngleUnit.RADIANS));
 
         double newForward = r * Math.sin(theta);
         double newStrafe = r * Math.cos(theta);

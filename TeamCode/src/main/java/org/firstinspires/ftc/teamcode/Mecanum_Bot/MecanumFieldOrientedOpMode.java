@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Mecanum_Bot;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -13,13 +14,18 @@ import org.firstinspires.ftc.teamcode.mechanisms.MecanumDrive;
 public class MecanumFieldOrientedOpMode extends OpMode {
 
 
+    Gamepad currentGamepad1 = new Gamepad();
+    Gamepad previousGamepad1 = new Gamepad();
+
+    double slowDown;
+
     private boolean hasLaunched = false;
 
     private ElapsedTime runTime = new ElapsedTime();
 
     Launcher launcher = new Launcher();
 
-
+    boolean launcherToggle = false;
 
     MecanumDrive drive = new MecanumDrive();
 
@@ -34,9 +40,17 @@ public class MecanumFieldOrientedOpMode extends OpMode {
 
     @Override
     public void loop() {
-        forward = -gamepad1.left_stick_y;
-        strafe = gamepad1.left_stick_x;
-        rotate = gamepad1.right_stick_x;
+
+        previousGamepad1.copy(currentGamepad1);
+        currentGamepad1.copy(gamepad1);
+
+        slowDown = (1-.5 * gamepad1.left_trigger);
+
+        forward = -gamepad1.left_stick_y*slowDown;
+        strafe = gamepad1.left_stick_x*slowDown;
+        rotate = gamepad1.right_stick_x*slowDown;
+
+
 
         drive.driveFieldRelative2(forward, strafe,rotate);
 
@@ -44,18 +58,34 @@ public class MecanumFieldOrientedOpMode extends OpMode {
         telemetry.addData("Y pos", drive.returnPosY());
         telemetry.addData("Heading", drive.returnHeading());
 
+        //If 'y' pressed
         if (gamepad1.y) {
             launcher.startLauncher();
         }
-        else if (gamepad1.b) {
-            launcher.stopLauncher();
+
+        //If 'b' pressed, toggle switch
+        if (currentGamepad1.b && !previousGamepad1.b) {
+            launcherToggle = !launcherToggle;
         }
-        else if (gamepad1.x) {
+        if (launcherToggle){
             launcher.spinLauncher();
         }
+        else {
+            launcher.stopLauncher();
+        }
 
 
+        //If 'x' pressed
+        if (gamepad1.x) {
 
+        }
+        //If 'a' pressed
+        if (gamepad1.a) {
+
+        }
+
+
+        //If bumpers pressed
         if (gamepad1.right_bumper){
             launcher.changeTargetVelocity(1);
         }
