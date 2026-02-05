@@ -53,6 +53,8 @@ public class MecanumPedroTeleOpMode
     //Define toggles
     boolean yToggle= false;
     boolean bToggle= false;
+    boolean fieldRobotToggle = false;
+    boolean fieldMode = false;
     boolean launcherToggle= false;
     boolean driveTypeToggle = false;
 
@@ -96,10 +98,18 @@ public class MecanumPedroTeleOpMode
         speedReduction = (1-SPEED_REDUCTION * gamepad1.left_trigger);
 
         forward = -gamepad1.left_stick_y*speedReduction;
-        strafe = gamepad1.left_stick_x*speedReduction;
-        rotate = gamepad1.right_stick_x*speedReduction;
+        strafe = -gamepad1.left_stick_x*speedReduction;
+        rotate = -gamepad1.right_stick_x*speedReduction;
 
-
+        if(gamepad1.back && !previousGamepad1.back){
+            fieldRobotToggle = !fieldRobotToggle;
+            if(fieldRobotToggle){
+                fieldMode = true;
+            }
+            else{
+                fieldMode = false;
+            }
+        }
         //Pedropathing TeleOp Code
         if (!automatedDrive) {
             //Make the last parameter false for field-centric
@@ -109,7 +119,8 @@ public class MecanumPedroTeleOpMode
                     forward,
                     strafe,
                     rotate,
-                    true // Robot Centric
+
+                    fieldMode // Robot Centric
             );
 
         }
