@@ -59,7 +59,7 @@ public class MecanumFieldOrientedOpMode extends OpMode {
         telemetry.addData("Heading", drive.returnHeading());
 
         //If 'y' pressed
-        if (gamepad1.y) {
+        if (gamepad1.y || gamepad1.right_trigger_pressed) {
             launcher.startLauncher();
         }
 
@@ -73,8 +73,7 @@ public class MecanumFieldOrientedOpMode extends OpMode {
         else {
             launcher.stopLauncher();
         }
-
-
+        
         //If 'x' pressed
         if (gamepad1.x) {
 
