@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.mechanisms.Launcher;
 import org.firstinspires.ftc.teamcode.mechanisms.MecanumDrive;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
-@Autonomous
+@Autonomous(name="Red Far", group="Autonomous")
 public class PedroPathingRedFar extends OpMode {
     private Follower follower;
     private Timer pathTimer, opModeTimer;

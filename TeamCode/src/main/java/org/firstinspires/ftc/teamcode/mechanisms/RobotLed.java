@@ -8,6 +8,7 @@ public class RobotLed {
     private Servo ledIndicator;
 
     public void init(HardwareMap hwMap){
+
         ledIndicator = hwMap.get(Servo.class, "LED");
     }
 
@@ -26,6 +27,9 @@ public class RobotLed {
             color = 0;
         }
 
+        ledIndicator.setPosition(color);
+    }
+    public void launcherSpeed(double color){
         ledIndicator.setPosition(color);
     }
 }

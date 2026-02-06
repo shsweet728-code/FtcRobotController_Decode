@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.mechanisms.Launcher;
 import org.firstinspires.ftc.teamcode.mechanisms.MecanumDrive;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
-@Autonomous
+@Autonomous(name="Blue Far", group="Autonomous")
 public class PedroPathingBlueFar extends OpMode {
     private Follower follower;
     private Timer pathTimer, opModeTimer;
@@ -34,7 +34,7 @@ public class PedroPathingBlueFar extends OpMode {
 
     private final Pose startPose = new Pose(56, 12, Math.toRadians(90));
     private final Pose shootPose = new Pose(43.176276771004936, 104.38220757825371, Math.toRadians(145));
-    private final Pose finishPose = new Pose(55, 60, Math.toRadians(180));
+    private final Pose finishPose = new Pose(18, 67, Math.toRadians(180));
 
     private PathChain driveStartShoot,turnAfterShot;
 

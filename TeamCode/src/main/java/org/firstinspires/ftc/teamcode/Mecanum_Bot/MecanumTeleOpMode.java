@@ -7,11 +7,10 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.mechanisms.Launcher;
 import org.firstinspires.ftc.teamcode.mechanisms.MecanumDrive;
+import org.firstinspires.ftc.teamcode.mechanisms.RobotLed;
 
-@TeleOp
-public class MecanumTeleOpMode
-        extends OpMode {
-
+@TeleOp(name="Mecanum Teleop", group="Pedropathing")
+public class MecanumTeleOpMode extends OpMode {
 
     Gamepad currentGamepad1 = new Gamepad();
     Gamepad previousGamepad1 = new Gamepad();
@@ -21,8 +20,8 @@ public class MecanumTeleOpMode
     private boolean hasLaunched = false;
 
     private ElapsedTime runTime = new ElapsedTime();
-
     Launcher launcher = new Launcher();
+    RobotLed ledIndicator = new RobotLed();
 
     //Define toggles
     boolean yToggle= false;
@@ -32,6 +31,8 @@ public class MecanumTeleOpMode
 
     //Constants
     double SPEED_REDUCTION = .7;
+    double BLUE = .611;
+    double RED = .28;
     MecanumDrive drive = new MecanumDrive();
 
     double forward, strafe, rotate;
@@ -40,6 +41,8 @@ public class MecanumTeleOpMode
     public void init() {
         drive.init(hardwareMap);
         launcher.init(hardwareMap);
+        ledIndicator.init(hardwareMap);
+        ledIndicator.launcherSpeed(BLUE);
     }
 
 
@@ -82,11 +85,13 @@ public class MecanumTeleOpMode
                 launcher.setTargetVelocity(1400);
                 launcher.spinLauncher();
                 //set LED color to red
+                ledIndicator.launcherSpeed(RED);
             }
             else{
                 launcher.setTargetVelocity(1250);
                 launcher.spinLauncher();
                 //set LED color to blue
+                ledIndicator.launcherSpeed(BLUE);
             }
         }
 

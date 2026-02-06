@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.mechanisms.Launcher;
 import org.firstinspires.ftc.teamcode.mechanisms.MecanumDrive;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
-@Autonomous
+@Autonomous(name="Blue Close", group="Autonomous")
 public class PedroPathingBlueClose extends OpMode {
     private Follower follower;
     private Timer pathTimer, opModeTimer;
@@ -33,8 +33,8 @@ public class PedroPathingBlueClose extends OpMode {
     PathState pathState;
 
     private final Pose startPose = new Pose(21.113673805601323, 124.78418451400331, Math.toRadians(144));
-    private final Pose shootPose = new Pose(43.176276771004936, 104.38220757825371, Math.toRadians(140));
-    private final Pose finishPose = new Pose(55.176276771004936, 60, Math.toRadians(180));
+    private final Pose shootPose = new Pose(43.176276771004936, 104.38220757825371, Math.toRadians(141));
+    private final Pose finishPose = new Pose(18, 67, Math.toRadians(180));
 
 
     private PathChain driveStartShoot,turnAfterShot;
