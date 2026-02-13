@@ -32,9 +32,9 @@ public class PedroPathingRedClose extends OpMode {
 
     PathState pathState;
 
-    private final Pose startPose = new Pose(121, 124.78418451400331, Math.toRadians(46));
-    private final Pose shootPose = new Pose(101, 104.38220757825371, Math.toRadians(40));
-    private final Pose finishPose = new Pose(80, 60, Math.toRadians(0));
+    private final Pose startPose = new Pose(122.88633, 124.78418451400331, Math.toRadians(36));
+    private final Pose shootPose = new Pose(99.823724, 103.38220757825371, Math.toRadians(39));
+    private final Pose finishPose = new Pose(128, 67, Math.toRadians(0));
 
     private PathChain driveStartShoot,turnAfterShot;
 
@@ -98,7 +98,7 @@ public class PedroPathingRedClose extends OpMode {
         follower = Constants.createFollower(hardwareMap);
         buildPath();
 
-        follower.setPose(startPose);
+        follower.setStartingPose(startPose);
 
     }
 

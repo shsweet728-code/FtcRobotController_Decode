@@ -98,7 +98,7 @@ public class PedroPathingBlueFar extends OpMode {
         follower = Constants.createFollower(hardwareMap);
         buildPath();
 
-        follower.setPose(startPose);
+        follower.setStartingPose(startPose);
 
     }
 

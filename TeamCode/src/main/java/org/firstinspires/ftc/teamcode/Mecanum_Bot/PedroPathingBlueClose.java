@@ -99,7 +99,7 @@ public class PedroPathingBlueClose extends OpMode {
         follower = Constants.createFollower(hardwareMap);
         buildPath();
 
-        follower.setPose(startPose);
+        follower.setStartingPose(startPose);
 
     }
 
